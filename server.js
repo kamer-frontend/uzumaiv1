@@ -17,7 +17,6 @@ app.post("/api/generate", async (req, res) => {
     return res.status(400).json({ error: "Xabar bo'sh bo'lishi mumkin emas" });
   }
 
-  // AI promptini yangiladik – mijoz izohlarini chiqarishni olib tashladik
   const prompt = `
 Sen Uzum marketplace uchun professional copywriter va SEO mutaxassisisan.
 Foydalanuvchi senga mahsulot haqida erkin ma'lumot beradi. Sen shu ma'lumotlardan foydalanib quyidagi formatda javob qaytar:
@@ -52,7 +51,6 @@ Til: O'zbek
 
     const text = data.choices[0].message.content;
 
-    // Javobni [TITLE], [FEATURES], [DESCRIPTION] bo'yicha ajratish
     const getTagContent = (tag, nextTag) => {
       const parts = text.split(tag);
       if (parts.length < 2) return "";
@@ -70,6 +68,8 @@ Til: O'zbek
   }
 });
 
-app.listen(3000, () =>
-  console.log("🚀 Server http://localhost:3000 da ishga tushdi")
-);
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`🚀 Server ${PORT} portda ishga tushdi`);
+});
